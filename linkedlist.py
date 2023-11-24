@@ -1,10 +1,17 @@
 # Singly Linked List By Archie Verma
-# Adding before-between-after, Removing before-between-after and Traversal of a Linked List
 
+# Adding before-between-after, Removing before-between-after and Traversal of a Linked List
+#                  |                              |
+#              between could be after node of before node 
+#      in betweeen can be inserted either after node of before node
+
+# We write separate code for after and before node:
+# After node: This one can't be the first node coz inserted 'after' either last node or in the rest positions see steps below
+# Before node: This one can become the first node coz inserted before  or can be in the rest postions 
 class Node:
 
     # Step 1: Just Create invidual nodes
-    # init is a special method class contructoor called when new instance of a class is created
+    # init is a special method class contructor called when new instance of a class is created
     # Each node contains data and address, and self is itself which has data and some address
     def __init__(self, data): 
         # data written here
@@ -49,6 +56,8 @@ class LinkedList:
              # set the n as current node's reference(that is the address of the next node then do the whole thing again untill node address becomes null usually till the last node)
              n = n.ref
 
+
+    ###########################################################################ADDING##########################################################################################
     # Inserting or adding we need data as parameter
     def add_begin(self, data) : 
         # Creating a node (we call it new_node) to insert which is an object from the Node class
@@ -72,11 +81,70 @@ class LinkedList:
                     n = n.ref
              # This helps change the reference of the last node from null to the ref of the element we want to add
              n.ref = new_node
-           
-        
+
+
+    # in betweeen can be inserted either after node of before node
+    # After node code: 
+    def add_after(self, data, x) : # x here is the node next to which we need to insert
+        # Find x
+         n = self.head # we take the first element as n 
+         # if this is true then we found x so break
+         while n is not None :
+            if x == n.data : # comparing the data field of each node with x to find x
+               break
+            # else move to the next element and check again when using break don't have to write break
+            n = n.ref # moving to next node to keep checking if its x
+         if n is None :
+                print("Node not present")
+         else :
+                new_node = Node(data) # initially reference is None for this new node, we need to point to to a node to insert it after a node
+                new_node.ref = n.ref # changed the reference of new node to new node
+                n.ref = new_node # now the previous n needs to point to the reference of new node
+    # Before node
+    def add_before(self, data, x) :
+    # Checking if linked list not empty
+      if self.head is None:
+            print ("Linked List empty")
+            return
+    # Step 1: For before the first node (newnode becomes the first node)
+    # checking if inserting element before the first element
+      if self.head.data == x: # x here is the first node we need to insert new node before x
+      # get code from above for add begin for inserting in the beginning
+       new_node = Node(data)  
+       new_node.ref = self.head
+       self.head = new_node
+       return
+    # Step 2: Before the rest nodes: 
+    # a)find previous node  of a given node to do it we need to:
+    #   1. identify- to do this we will have to check that the next node data is equal to x (the given node) 
+    #   2. go to the previous node - take first node as n and check if the data is equal to x till you get equal keep checking the whole list by moving using n = n.ref
+    # b)new node after that previous node same as add_end to insert the node
+      n = self.head
+      while n.ref is not None :
+       if n.ref.data == x:
+            break
+       n = n.ref
+
+      if n.ref is None : 
+        print("Node not found")
+      else :
+       # same as add_end to insert the node
+       new_node = Node(data)
+       new_node.ref = n.ref 
+       n.ref = new_node
+ ###########################################################################ADDING##########################################################################################
+
+ ###########################################################################REMOVING########################################################################################
+
+ ###########################################################################REMOVING########################################################################################
+
+    
 LL1 = LinkedList()
 LL1.add_begin(10)
 LL1.add_end(50)
 LL1.add_end(100)
+LL1.add_after(200,100) # date is 200 needs to be added after 100
+# LL1.add_after(200,500) # case for 500 not present add 200 after 500, should give node not present
 LL1.add_begin(20)
+LL1.add_before(60, 10)
 LL1.print_LinkedList()
