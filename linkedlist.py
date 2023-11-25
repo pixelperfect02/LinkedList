@@ -164,9 +164,42 @@ class LinkedList:
                 n = n.ref
             n.ref = None
 
+    # Delete a node from the middle or in between or any position of a linked list
+    # User will give the value of the node to delete it  
+    # In between can be deleted either after node of before node:  
+    # Two conditions here:
+    # 1. Check if its the first node that has to be deleted (before)
+    # 2. Check if its other node or last node that has to be deleted (after)
+    def delete_by_value(self,x):
+        # Check if the linkedlist is empty
+        if self.head is None :
+           print("LL is empty, no node to delete")
+           return
+        
+        # If linkedlist not empty then check if the user given node(x) is first node or not 
+        # If it is true then the head needs to point at the second node
+        if x==self.head.data :
+            self.head = self.head.ref
+            return
+        
+        # If it is not the first node, we have to go to the previous node of the given node and 
+        # We need to change its reference to the next node
+        # This is how we check that this particular node is the previous node(we go through the whole linked list), n is nothing but the first node
+        n = self.head
+        while n.ref is not None :
+           if n.ref.data == x : 
+              break 
+           n = n.ref
+           
+        if n.ref is None :
+            print("Node not present")
+        else : 
+            n.ref = n.ref.ref
  ###########################################################################REMOVING########################################################################################
-
+ 
 LL1 = LinkedList()
+LL1.add_begin(44)
+LL1.delete_by_value(44)
 LL1.add_begin(10)
 LL1.delete_begin()
 LL1.add_begin(20)
@@ -177,6 +210,7 @@ LL1.add_after(200,100) # date is 200 needs to be added after 100
 # LL1.add_after(200,500) # case for 500 not present add 200 after 500, should give node not present
 LL1.add_before(60, 20)
 LL1.print_LinkedList()
+
 
 # elif test
 # LL1 = LinkedList()
