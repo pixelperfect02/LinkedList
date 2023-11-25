@@ -206,7 +206,7 @@ LL1.add_begin(20)
 LL1.add_end(50)
 LL1.delete_end()
 LL1.add_end(100)
-LL1.add_after(200,100) # date is 200 needs to be added after 100
+LL1.add_after(200,100) # data is 200 needs to be added after 100
 # LL1.add_after(200,500) # case for 500 not present add 200 after 500, should give node not present
 LL1.add_before(60, 20)
 LL1.print_LinkedList()
