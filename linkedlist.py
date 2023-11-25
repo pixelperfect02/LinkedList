@@ -135,16 +135,55 @@ class LinkedList:
  ###########################################################################ADDING##########################################################################################
 
  ###########################################################################REMOVING########################################################################################
+    # Delete a node from the beginning of a linked list 
+    def delete_begin(self):
+        # Check if the linkedlist is empty
+        if self.head is None :
+            print("LL is empty, no node to delete")
+        else:
+        # Else we need to point head to the seccond node, that is we need to store the reference of the second node in the head
+         self.head = self.head.ref
+    
+    # Delete a node from the end of a linked list
+    def delete_end(self):
+        # Check if the linkedlist is empty
+        if self.head is None :
+            print("LL is empty, no node to delete")
+        
+        # We will get error in case linked list only contains 1 element and we delete it coz the ref will point to none therefore n.ref.ref won't work, so we add elif condition:
+        elif self.head.ref is None : 
+            self.head = None
+
+        else:
+        # Else we need to go to the 2nd last node and change its ref to none or null
+        # To go to the 2nd last node we still need to start from the start of the linked list n is head to do that and we use while loop like we have been doing before
+        # We can identify the 2nd last node by going to the last none whose ref is null and then go to the node next to it matching the last second nodes reference with last 
+        # node's address=> x or n now coz loop is last second node and x.ref is address of next node within x and then x.ref.ref is reference of the next node can be last node so null here
+            n = self.head
+            while n.ref.ref is not None :
+                n = n.ref
+            n.ref = None
 
  ###########################################################################REMOVING########################################################################################
 
-    
 LL1 = LinkedList()
 LL1.add_begin(10)
+LL1.delete_begin()
+LL1.add_begin(20)
 LL1.add_end(50)
+LL1.delete_end()
 LL1.add_end(100)
 LL1.add_after(200,100) # date is 200 needs to be added after 100
 # LL1.add_after(200,500) # case for 500 not present add 200 after 500, should give node not present
-LL1.add_begin(20)
-LL1.add_before(60, 10)
+LL1.add_before(60, 20)
 LL1.print_LinkedList()
+
+# elif test
+# LL1 = LinkedList()
+# LL1.add_begin(10)
+# LL1.delete_end()
+# LL1.print_LinkedList()
+
+
+
+    
